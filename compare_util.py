@@ -19,7 +19,7 @@ from deepdiff import DeepDiff
 def load(filename):
     
     data = None
-    with open(filename) as local_file:
+    with open('extracted_files/'+filename) as local_file:
         data = json.load(local_file)
 
     return data
@@ -69,12 +69,15 @@ def compare_local_data(product_list):
         compare_single_json(vendor_1_filename, vendor_2_filename, result_filepath)
 
 
-def startpy():
+def get_product_list():
+    filenames_list = os.listdir('extracted_files')
+    return filenames_list
 
+def startpy():
     product_list = [
-        "10001"
+        "10001",
+        "10002"
     ]
-    
     compare_local_data(product_list)
 
 
