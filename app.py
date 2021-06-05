@@ -1,6 +1,6 @@
 import imghdr
 import os
-from flask import Flask, render_template, request, redirect, url_for, abort, \
+from flask import Flask, render_template, request, redirect, url_for,send_file, abort, \
     send_from_directory
 from werkzeug.utils import secure_filename
 import extract_zip as ez
@@ -53,7 +53,7 @@ def create_zip():
     print('Following files will be zipped:')
     for file_name in file_paths:
         print(file_name)
-    with zipfile('client_data_compared.zip','w') as zip:
+    with zipfile.ZipFile('client_data_compared.zip','w') as zip:
         for file in file_paths:
             zip.write(file)
     print('All files zipped successfully!')
