@@ -15,6 +15,7 @@ Pip:
 # Import necessary modules
 import json
 from deepdiff import DeepDiff
+import os
 
 def load(filename):
     
@@ -68,19 +69,29 @@ def compare_local_data(product_list):
 
         compare_single_json(vendor_1_filename, vendor_2_filename, result_filepath)
 
-
 def get_product_list():
+
     filenames_list = os.listdir('extracted_files')
-    return filenames_list
+    print(filenames_list)
+    product_id_list = []
+
+    for name in filenames_list:
+        if 'vendor1.json' in name:
+            product_id_list.append(str(name.replace('-vendor1.json','')))
+        
+        if 'vendor2.json' in name:
+            product_id_list.append(str(name.replace('-vendor2.json','')))
+
+
+    return product_id_list
+
 
 def startpy():
-    product_list = [
-        "10001",
-        "10002"
-    ]
+
+    product_list = get_product_list()
+    
     compare_local_data(product_list)
 
 
 if __name__ == '__main__':
     startpy()
-

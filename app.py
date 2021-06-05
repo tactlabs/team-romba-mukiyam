@@ -3,6 +3,8 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, abort, \
     send_from_directory
 from werkzeug.utils import secure_filename
+import extract_zip as ez
+import compare_util as cu
 
 
 app = Flask(__name__)
@@ -28,6 +30,12 @@ def upload_files():
 @app.route('/uploads/<filename>')
 def upload(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
+
+@app.route('/extract')
+def imported_task():
+    ez.extract_zip('uploads/client.zip')
+    cu.startpy()
+    return 'check results folder'
 
 if __name__ == '__main__':
     app.run(debug=True)
